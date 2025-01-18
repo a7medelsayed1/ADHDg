@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:graduation_adhd/features/presentation/screens/my_children.dart';
 
@@ -11,35 +11,34 @@ class Addchild extends StatefulWidget {
 }
 
 class _AddchildState extends State<Addchild> {
-  Color _favoriteColor = Colors.grey; // اللون الافتراضي
-  //  Future<void> _saveColor(Color color) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   bool success=await prefs.setInt('selectedColor', color.value);
-  //  if (success) {
-  //   print("تم حفظ اللون بنجاح: ${color.value}");
-  // } else {
-  //   print("فشل في حفظ اللون.");
-  // }
-  // }
-  
+  Color _favoriteColor = Colors.grey;
 
-  // استرجاع اللون من Shared Preferences
-  // Future<void> _loadColor() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   int? colorValue = prefs.getInt('selectedColor');
-  //   if (colorValue != null) {
-  //     setState(() {
-  //       _favoriteColor = Color(colorValue); // تحويل القيمة إلى كائن Color
-  //     });
-  //     print("تم استرجاع اللون: $colorValue");
-  //   }
-  // }
+  Future<void> _saveColor(Color color) async {
+    final prefs = await SharedPreferences.getInstance();
+    bool success = await prefs.setInt('selectedColor', color.value);
+    if (success) {
+      print("تم حفظ اللون بنجاح: ${color.value}");
+    } else {
+      print("فشل في حفظ اللون.");
+    }
+  }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadColor(); 
-  // }
+  Future<void> _loadColor() async {
+    final prefs = await SharedPreferences.getInstance();
+    int? colorValue = prefs.getInt('selectedColor');
+    if (colorValue != null) {
+      setState(() {
+        _favoriteColor = Color(colorValue);
+      });
+      print("تم استرجاع اللون: $colorValue");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadColor();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -373,7 +372,8 @@ class _AddchildState extends State<Addchild> {
 
                 setState(() {
                   _favoriteColor = color; // تحديث اللون عند تغييره
-                 
+                  _saveColor(_favoriteColor);
+
 
                 });
               },

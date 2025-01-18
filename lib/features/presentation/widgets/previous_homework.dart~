@@ -174,36 +174,32 @@ class _PreviousHomeworkState extends State<PreviousHomework> {
             BarChartData(
               alignment: BarChartAlignment.spaceAround,
               maxY: 20, // Maximum value on the Y-axis
-              minY: 0,  // Minimum value on the Y-axis
+              minY: 0, // Minimum value on the Y-axis
               barTouchData: BarTouchData(
                 touchTooltipData: BarTouchTooltipData(
-                  // tooltipBgColor: Colors.grey,
+                  tooltipBgColor: Colors.grey,
                 ),
               ),
               titlesData: FlTitlesData(
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: true),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    getTitlesWidget: (double value, TitleMeta meta) {
-                      switch (value.toInt()) {
-                        case 0:
-                          return Text('Mon');
-                        case 1:
-                          return Text('Tue');
-                        case 2:
-                          return Text('Wed');
-                        case 3:
-                          return Text('Thu');
-                        case 4:
-                          return Text('Fri');
-                        default:
-                          return Text('');
-                      }
-                    },
-                  ),
+                leftTitles: SideTitles(showTitles: true),
+                bottomTitles: SideTitles(
+                  showTitles: true,
+                  getTitles: (double value) {
+                    switch (value.toInt()) {
+                      case 0:
+                        return 'Mon';
+                      case 1:
+                        return 'Tue';
+                      case 2:
+                        return 'Wed';
+                      case 3:
+                        return 'Thu';
+                      case 4:
+                        return 'Fri';
+                      default:
+                        return '';
+                    }
+                  },
                 ),
               ),
               borderData: FlBorderData(
