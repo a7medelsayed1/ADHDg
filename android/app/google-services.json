@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "216697039326",
+    "project_id": "adhd-48cb5",
+    "storage_bucket": "adhd-48cb5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216697039326:android:f308a4f9c6665c5f88554f",
+        "android_client_info": {
+          "package_name": "com.example.graduation_adhd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEC7vrv3Kzo40GPG5TFq0GNX1bagAatmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
