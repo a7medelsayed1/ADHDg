@@ -47,9 +47,7 @@ class _PreviousHomeworkState extends State<PreviousHomework> {
 
   @override
   Widget build(BuildContext context) {
-
     return FutureBuilder(
-
       future: fetchTasks(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -174,11 +172,11 @@ class _PreviousHomeworkState extends State<PreviousHomework> {
                                                     style: Textutils.title18,
                                                   )),
                                               Text(
-                                                'نط الحبل',
+                                                tasks[index].activity,
                                                 style: Textutils.title12.copyWith(fontSize: 14),
                                               ),
-                                              const Text(
-                                                '🕐 20د',
+                                               Text(
+                                                '🕐 {${tasks[index].duration}',
                                                 style: Textutils.title12,
                                               ),
                                             ],
