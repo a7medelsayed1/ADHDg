@@ -33,7 +33,6 @@ class Task {
 Future<List<Task>> fetchTasks() async {
   final querySnapshot = await FirebaseFirestore.instance.collection('tasks').get();
   return querySnapshot.docs.map((doc) => Task.fromFirestore(doc)).toList();
-
 }
 
 Future<Map<String, int>> countActivitiesByTitle(String childId) async {

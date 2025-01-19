@@ -8,6 +8,8 @@ import 'package:graduation_adhd/features/presentation/widgets/previous_homework.
 import 'package:graduation_adhd/features/presentation/widgets/profile_widget.dart';
 import 'package:graduation_adhd/features/presentation/widgets/switch_container.dart';
 
+import '../../model/task_model.dart';
+
 class TaskManagerBodyWidget extends StatefulWidget {
   const TaskManagerBodyWidget({
     super.key,
@@ -25,22 +27,22 @@ class _TaskManagerBodyWidgetState extends State<TaskManagerBodyWidget> {
     return Stack(
       children: [
         SingleChildScrollView(
-          child: Column(
-            children: [
-              const ProfileWidget(),
-              Container(
-                padding: EdgeInsets.only(top: 8.h, right: 16.w, left: 16.w),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(22.r),
-                        topRight: Radius.circular(22.r))),
-                child: Column(
+          child: FutureBuilder(
+            future: fetchTasks(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsets.only(left: 8.w, right: 16.w, bottom: 8.h),
+                      padding: EdgeInsets.only(left: 8.w, right: 16.w, bottom: 8.h),
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -58,8 +60,7 @@ class _TaskManagerBodyWidgetState extends State<TaskManagerBodyWidget> {
                       height: 40.h,
                       width: MediaQuery.of(context).size.width - 32.w,
                       decoration: BoxDecoration(
-                          color: MyColors.lightgrey,
-                          borderRadius: BorderRadius.circular(24.r)),
+                          color: MyColors.lightgrey, borderRadius: BorderRadius.circular(24.r)),
                       child: Row(
                         children: [
                           SwitchContainer(
@@ -72,8 +73,7 @@ class _TaskManagerBodyWidgetState extends State<TaskManagerBodyWidget> {
                             },
                           ),
                           SwitchContainer(
-                            color:
-                                !selected ? Colors.white : Colors.transparent,
+                            color: !selected ? Colors.white : Colors.transparent,
                             text: 'السابقه',
                             ontap: () {
                               setState(() {
@@ -86,9 +86,9 @@ class _TaskManagerBodyWidgetState extends State<TaskManagerBodyWidget> {
                     ),
                     !selected ? const PreviousHomework() : const AddHomework(),
                   ],
-                ),
-              )
-            ],
+                );
+              }
+            },
           ),
         ),
         Positioned(
