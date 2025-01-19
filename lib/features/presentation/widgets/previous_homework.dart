@@ -1,9 +1,9 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graduation_adhd/core/colors.dart';
 import 'package:graduation_adhd/core/textutils.dart';
-import 'package:graduation_adhd/features/presentation/screens/test.dart';
 import 'package:graduation_adhd/features/presentation/widgets/bar_chart_container.dart';
 import 'package:graduation_adhd/features/presentation/widgets/custom_drop_down.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -17,7 +17,7 @@ class PreviousHomework extends StatefulWidget {
 
 class _PreviousHomeworkState extends State<PreviousHomework> {
   String? selectedValue;
-
+  int selectedIndex = 0;
   List<String> months = [
     'يناير',
     "فبراير",
@@ -60,8 +60,14 @@ class _PreviousHomeworkState extends State<PreviousHomework> {
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: weaks.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                        onTap: () {},
+                  itemBuilder: (context, index) {
+                    bool isSelected= selectedIndex==index;
+                    return GestureDetector(
+                        onTap: () {
+                            setState(() {
+                              selectedIndex=index;
+                            });
+                        },
                         child: Container(
                           padding: const EdgeInsets.all(2),
                           alignment: Alignment.center,
@@ -69,6 +75,7 @@ class _PreviousHomeworkState extends State<PreviousHomework> {
                           height: 18.h,
                           width: 50.w,
                           decoration: BoxDecoration(
+                              color: isSelected?MyColors.barchartYellow:Colors.transparent,
                               borderRadius: BorderRadius.circular(12.r),
                               border: Border.all(color: Colors.black26)),
                           child: Text(
@@ -77,7 +84,7 @@ class _PreviousHomeworkState extends State<PreviousHomework> {
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                         ),
-                      )),
+                      );}),
             )
           ],
         ),
@@ -110,9 +117,8 @@ class _PreviousHomeworkState extends State<PreviousHomework> {
                         Column(
                           children: [
                             Container(
-                              margin: const EdgeInsets.only(bottom: 16),
-                              height: 54.h,
-                              width: 250.w,
+                              margin: const EdgeInsets.only(bottom: 16,left: 16),
+                              width: 230.w,
                               decoration: BoxDecoration(
                                   color: MyColors.lineprogressgreen,
                                   borderRadius: BorderRadius.circular(30.r)),
@@ -123,10 +129,10 @@ class _PreviousHomeworkState extends State<PreviousHomework> {
                                       SizedBox(width: 10.w,),
                                       Column(children: [
                                         Transform.translate(
-                                          offset: Offset(0, 8),
-                                          child: Text('رياضيات',style: Textutils.title18,)),
+                                          offset: const Offset(0, 5),
+                                          child: const Text('رياضيات',style: Textutils.title18,)),
                                         Text('نط الحبل',style: Textutils.title12.copyWith(fontSize: 14),),
-                                        Text('🕐 20د',style: Textutils.title12,),
+                                        const Text('🕐 20د',style: Textutils.title12,),
                                       ],)
                                     ],),
                                   ),
@@ -145,10 +151,118 @@ class _PreviousHomeworkState extends State<PreviousHomework> {
           'مخطط الانشطه:',
           style: Textutils.title18.copyWith(fontSize: 16),
         ),
-         SizedBox(height: 300,
+         SizedBox(height: 220.h,
+           width: 220.w,
+           child: BarChart(
+             BarChartData(
+
+               gridData: const FlGridData(show: false),
+               alignment: BarChartAlignment.spaceAround,
+               maxY: 10,
+               barTouchData: BarTouchData(enabled: false),
+               titlesData: FlTitlesData(
+                 topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                 rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                 leftTitles: AxisTitles(
+                   sideTitles: SideTitles(
+                     showTitles: false,
+                     getTitlesWidget: (value, meta) {
+                       return Text(
+                         value.toInt().toString(),
+                         style: const TextStyle(
+                           color: Colors.black,
+                           fontSize: 12,
+                         ),
+                       );
+                     },
+                     reservedSize: 28,
+                   ),
+                 ),
+                 bottomTitles: AxisTitles(
+                   sideTitles: SideTitles(
+                     showTitles: true,
+                     getTitlesWidget: (value, meta) {
+                       switch (value.toInt()) {
+                         case 0:
+                           return Transform.rotate(angle: -45,
+                           child: Container(
+                               padding: const EdgeInsets.all(8),
+                               margin: EdgeInsets.only(right: 8.w),
+                               width:45.w,
+                               child: const Text('Back Turns',style: Textutils.title10,softWrap: true,overflow: TextOverflow.visible,)));
+                         case 1:
+                           return Transform.rotate(angle: -45,
+                               child: Container(
+                                   padding: const EdgeInsets.all(8),
+                                   width:50,
+                                   child: const Text('Hand claps',style: Textutils.title10,softWrap: true,overflow: TextOverflow.visible,)));
+                         case 2:
+                           return Transform.rotate(angle: -45,
+                               child: Container(
+                                   padding: EdgeInsets.only(top: 8.h,right: 8.w),
+                                   width:50,
+                                   child: const Text('الجري',style: Textutils.title10,softWrap: true,overflow: TextOverflow.visible,)));
+                         case 3:
+                           return Transform.rotate(angle: -45,
+                               child: Container(
+                                   padding: const EdgeInsets.all(8),
+                                   width:50,
+                                   child: const Text('Jump jacks',style: Textutils.title10,softWrap: true,overflow: TextOverflow.visible,maxLines: 2,)));
+                         case 4:
+                           return Transform.rotate(angle: -45,
+                               child: Container(
+                                   padding: const EdgeInsets.all(8),
+                                   width:50,
+                                   child: const Text('الرقص',style: Textutils.title10,softWrap: true,overflow: TextOverflow.visible,)));
+                         case 5:
+                           return Transform.rotate(angle: -45,
+                               child: Container(
+                                   padding: const EdgeInsets.all(8),
+                                   width:50,
+                                   child: const Text('نط الحبل',style: Textutils.title10,softWrap: true,overflow: TextOverflow.visible,)));
+                         default:
+                           return Transform.rotate(angle: -30,
+                               child: Container(
+                                   padding: const EdgeInsets.all(8),
+                                   width:50.w,
+                                   child: const Text('اخري',style: Textutils.title10,softWrap: true,overflow: TextOverflow.visible,)));
+                       }
+                     },
+                     reservedSize: 40,
+                   ),
+                 ),
+               ),
+               borderData: FlBorderData(
+                 border: const Border(top: BorderSide.none,right: BorderSide.none,bottom: BorderSide(),left: BorderSide()),
+                 show: true,
+               ),
+               barGroups: [
+                 _buildBarGroup(0, 4, MyColors.barchartRed),
+                 _buildBarGroup(1, 6, MyColors.barchartBlue),
+                 _buildBarGroup(2, 9, MyColors.barchartYellow),
+                 _buildBarGroup(3, 3, MyColors.barchartGreen),
+                 _buildBarGroup(4, 7, MyColors.barchartBrown),
+                 _buildBarGroup(5, 5, MyColors.barchartPurple),
+               ],
+             ),
+           ),
         )
       ],
     );
   }
+
+}
+BarChartGroupData _buildBarGroup(int x, double y, Color color) {
+  return BarChartGroupData(
+    x: x,
+    barRods: [
+      BarChartRodData(
+        width: 36.w,
+        toY: y,
+        color: color,
+        borderRadius: BorderRadius.circular(2.r),
+      ),
+    ],
+  );
 }
 
