@@ -23,6 +23,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
+      underline: Container(),
       menuMaxHeight: 300.h,
       value: widget.selectedValue,
       hint: Text(widget.values.first),
