@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation_adhd/core/textutils.dart';
 
-class ProfileWidget extends StatelessWidget {
+class ProfileWidget extends StatefulWidget {
   const ProfileWidget({
     super.key,
   });
+
+  @override
+  State<ProfileWidget> createState() => _ProfileWidgetState();
+}
+
+class _ProfileWidgetState extends State<ProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class ProfileWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 25.r,
-              backgroundColor: Colors.black,
+              backgroundImage:const AssetImage('assets/images/image.jpeg'),
               child: Transform.translate(
                 offset: Offset(18.w, 18.h),
                 child: GestureDetector(

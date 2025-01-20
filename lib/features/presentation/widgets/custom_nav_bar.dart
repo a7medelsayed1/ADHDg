@@ -12,7 +12,7 @@ class CustomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8.h),
-      height: 70.h,
+      height: 50.h,
       width: 160.w,
       decoration: BoxDecoration(
         color: MyColors.navbarcolor,

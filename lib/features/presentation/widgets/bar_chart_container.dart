@@ -12,7 +12,7 @@ class BarChartContainer extends StatelessWidget {
 Future<Map<String, dynamic>> fetchTaskData() async {
   QuerySnapshot snapshot = await FirebaseFirestore.instance
       .collection('tasks')
-      .where('childID', isEqualTo: '1') 
+      .where('childID', isEqualTo: '1').where('month',isEqualTo: '1') 
       .get();
 
   int completedTasks = snapshot.docs.where((task) {

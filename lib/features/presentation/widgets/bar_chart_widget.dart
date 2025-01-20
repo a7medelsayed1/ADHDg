@@ -14,7 +14,14 @@ class BarChartWidget extends StatefulWidget {
 
 class _BarChartWidgetState extends State<BarChartWidget> {
   Map<String, int> activityCounts = {};
-  final List<String> activities = ['Back Turns', 'Hand claps', 'الجري', 'Jump jacks', 'الرقص', 'نط الحبل'];
+  final List<String> activities = [
+    'Back Turns',
+    'Hand claps',
+    'الجري',
+    'Jump jacks',
+    'الرقص',
+    'نط الحبل'
+  ];
 
   @override
   void initState() {
@@ -55,8 +62,10 @@ class _BarChartWidgetState extends State<BarChartWidget> {
           maxY: 10,
           barTouchData: BarTouchData(enabled: false),
           titlesData: FlTitlesData(
-            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles:
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            rightTitles:
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
             leftTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
@@ -79,15 +88,15 @@ class _BarChartWidgetState extends State<BarChartWidget> {
                     return Transform.rotate(
                       angle: -45,
                       child: Container(
-                              padding: const EdgeInsets.all(8),
-                              width: 50,
-                              child:  Text(
-                                activities[index],
-                                style: Textutils.title10,
-                                softWrap: true,
-                                overflow: TextOverflow.visible,
-                                maxLines: 2,
-                              )),
+                          padding: const EdgeInsets.all(8),
+                          width: 50,
+                          child: Text(
+                            activities[index],
+                            style: Textutils.title10,
+                            softWrap: true,
+                            overflow: TextOverflow.visible,
+                            maxLines: 2,
+                          )),
                     );
                   }
                   return const SizedBox.shrink();
@@ -107,7 +116,8 @@ class _BarChartWidgetState extends State<BarChartWidget> {
           barGroups: List.generate(activities.length, (index) {
             final activity = activities[index];
             final count = activityCounts[activity] ?? 0;
-            return _buildBarGroup(index, count.toDouble(), _getColorForActivity(index));
+            return _buildBarGroup(
+                index, count.toDouble(), _getColorForActivity(index));
           }),
         ),
       ),
