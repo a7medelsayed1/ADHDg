@@ -10,11 +10,12 @@ class CustomDropDown extends StatefulWidget {
     super.key,
     required this.selectedValue,
     required this.values,
+    required this.monthsMap
   });
 
   String? selectedValue;
   final List<String> values;
-
+final Map<String, int> monthsMap ;
   @override
   State<CustomDropDown> createState() => _CustomDropDownState();
 }
@@ -49,6 +50,10 @@ class _CustomDropDownState extends State<CustomDropDown> {
       onChanged: (String? newValue) {
         setState(() {
           widget.selectedValue = newValue;
+             if (newValue != null) {
+            int? monthNumber =widget. monthsMap[newValue]; 
+            print('Selected month: $newValue, Month number: $monthNumber');
+          }
         });
       },
     );

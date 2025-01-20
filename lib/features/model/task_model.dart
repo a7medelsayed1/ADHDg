@@ -6,7 +6,9 @@ class Task {
   final DateTime date;
   final String duration;
   final bool isCompleted;
-  final String? id;
+  final String id;
+  final String day;
+  final String weak;
 
   Task({
     required this.subject,
@@ -15,6 +17,8 @@ class Task {
     required this.duration,
     required this.isCompleted,
     required this.id,
+    required this.day,
+    required this.weak
   });
 
   factory Task.fromFirestore(DocumentSnapshot doc) {
@@ -26,12 +30,14 @@ class Task {
       duration: data['duration'] ?? '',
       isCompleted: data['isCompleted'] ?? false,
       id: data['childID']??'',
+      day: data['day']??'',
+      weak: data['weak']??'',
     );
   }
 }
 
-Future<List<Task>> fetchTasks() async {
-  final querySnapshot = await FirebaseFirestore.instance.collection('tasks').get();
+Future<List<Task>> fetchTasks(String weaknum, monthnum) async {
+  final querySnapshot = await FirebaseFirestore.instance.collection('tasks').where('weak',isEqualTo: weaknum ).where('month', isEqualTo: monthnum).get();
   return querySnapshot.docs.map((doc) => Task.fromFirestore(doc)).toList();
 
 }
